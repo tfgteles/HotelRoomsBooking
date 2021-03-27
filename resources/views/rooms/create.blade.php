@@ -20,9 +20,7 @@
             {{Form::number('max_occupancy', '', ['class' => 'form-control'])}}
         </div>
         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
-    {!! Form::close() !!}
-    <div class="mt-3">
         <a href="/rooms" class="btn btn-info" role="button">Cancel</a>
-    </div>
+    {!! Form::close() !!}
 
 @endsection

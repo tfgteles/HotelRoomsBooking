@@ -19,6 +19,7 @@ class RoomController extends Controller
             'rooms' => Room::all()->sortBy('room_number'),
             'display' => 'table'
         ];
+
         return view('rooms.index', $data);
     }
 
@@ -33,6 +34,7 @@ class RoomController extends Controller
             'title' => 'Rooms',
             'display' => 'create'
         ];
+
         return view('rooms.create', $data);
     }
 
@@ -74,6 +76,7 @@ class RoomController extends Controller
             'title' => 'Room',
             'room' => Room::find($id),
         ];
+
         return view('rooms.delete', $data);
     }
 
@@ -89,6 +92,7 @@ class RoomController extends Controller
             'title' => 'Room',
             'room' => Room::find($id),
         ];
+
         return view('rooms.edit', $data);
     }
 
@@ -121,8 +125,10 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
+        // Delete Room
         $room = Room::find($id);
         $room->delete();
+
         return redirect('rooms')->with('success', 'Room Deleted');
     }
 }

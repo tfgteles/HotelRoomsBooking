@@ -3,7 +3,7 @@
 @section('content')
 
     @if (count($rooms) > 0)
-        <table>
+        <table class="table table-striped">
             <tr>
                 <th>Room Number</th>
                 <th>Room Name</th>
@@ -18,8 +18,8 @@
                 <td>{{$room->room_name}}</td>
                 <td>{{$room->room_description}}</td>
                 <td>{{$room->max_occupancy}}</td>
-                <td><a href="rooms/{{$room->id}}/edit">Edit</a></td>
-                <td><a href="rooms/{{$room->id}}">Delete</a></td>
+                <td><a href="/rooms/{{$room->id}}/edit" class="btn btn-default">Edit</a></td>
+                <td><a href="/rooms/{{$room->id}}" class="btn btn-default">Delete</a></td>
             </tr>
         @endforeach
         </table>
