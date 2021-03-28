@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,8 @@ Route::resource('rooms', RoomController::class);
 
 Route::redirect('/', '/rooms');
 
+Route::resource('bookings', BookingController::class);
+
 /* Route::get('/', function () {
     $data = ['title' => 'Rooms'];
     return view('pages.rooms', $data);
@@ -25,10 +28,10 @@ Route::redirect('/', '/rooms');
 
 // Route::get('/about', [PagesController::class, 'about']);
 
-Route::get('/bookings', function () {
+/* Route::get('/bookings', function () {
     $data = ['title' => 'Bookings'];
     return view('pages.bookings', $data);
-});
+}); */
 
 Route::get('/about', function () {
     $data = ['title' => 'About'];

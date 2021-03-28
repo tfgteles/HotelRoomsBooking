@@ -23,11 +23,12 @@
             </tr>
         @endforeach
         </table>
-        <div class="mt-3">
-            <a href="/rooms/create" class="btn btn-info" role="button">Create New Room</a>
-        </div>
+
     @else
         <p> No room found</p>
     @endif
+    <div class="mt-3">
+        <a href="/rooms/create" class="btn btn-info" role="button">Create New Room</a>
+    </div>
 
 @endsection

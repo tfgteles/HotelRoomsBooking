@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Booking;
 use App\Models\Room;
 
-class RoomController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +16,11 @@ class RoomController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Rooms',
-            'rooms' => Room::all()->sortBy('room_number'),
+            'title' => 'Bookings',
+            'bookings' => Booking::all()->sortBy('booking_date'),
         ];
 
-        return view('rooms.index', $data);
+        return view('pages.bookings', $data);
     }
 
     /**
@@ -29,11 +30,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        $data = [
-            'title' => 'Rooms',
-        ];
-
-        return view('rooms.create', $data);
+        return redirect('bookings');
     }
 
     /**
@@ -46,20 +43,24 @@ class RoomController extends Controller
     {
         $this->validate($request, [
             'room_number' => 'required',
-            'room_name' => 'required',
-            'room_description' => 'required',
-            'max_occupancy' => 'required',
+            'guest_name' => 'required',
+            'booking_date' => 'required',
         ]);
 
-        // Create Room
-        $room = new Room;
-        $room->room_number = $request->room_number;
-        $room->room_name = $request->room_name;
-        $room->room_description = $request->room_description;
-        $room->max_occupancy = $request->max_occupancy;
-        $room->save();
+        $room = Room::where('room_number', $request->room_number)->first();
 
-        return redirect('rooms')->with('success', 'Room Created');
+        if (!isset($room->id)) {
+            return redirect('bookings')->with('error', 'Room number not found');
+        }
+
+        // Create Booking
+        $booking = new Booking;
+        $booking->room_id = $room->id;
+        $booking->guest_name = $request->guest_name;
+        $booking->booking_date = $request->booking_date;
+        $booking->save();
+
+        return redirect('bookings')->with('success', 'Booking Created');
     }
 
     /**
@@ -70,12 +71,7 @@ class RoomController extends Controller
      */
     public function show($id)
     {
-        $data =[
-            'title' => 'Room',
-            'room' => Room::find($id),
-        ];
-
-        return view('rooms.delete', $data);
+        return redirect('bookings');
     }
 
     /**
@@ -86,12 +82,7 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
-        $data =[
-            'title' => 'Room',
-            'room' => Room::find($id),
-        ];
-
-        return view('rooms.edit', $data);
+        return redirect('bookings');
     }
 
     /**
@@ -103,16 +94,7 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'room_description' => 'required',
-        ]);
-
-        // Update Room
-        $room = Room::find($id);
-        $room->room_description = $request->room_description;
-        $room->save();
-
-        return redirect('rooms')->with('success', 'Room Updated');
+        return redirect('bookings');
     }
 
     /**
@@ -123,10 +105,10 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        // Delete Room
-        $room = Room::find($id);
-        $room->delete();
+        // Delete Booking
+        $booking = Booking::find($id);
+        $booking->delete();
 
-        return redirect('rooms')->with('success', 'Room Deleted');
+        return redirect('bookings')->with('success', 'Booking Deleted');
     }
 }
