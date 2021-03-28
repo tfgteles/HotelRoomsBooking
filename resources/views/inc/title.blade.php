@@ -1,1 +1,1 @@
-<h1>{{$title}}</h1>
+<h1 class="text-center mt-2 mb-2">{{$title}}</h1>

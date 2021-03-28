@@ -15,23 +15,14 @@ use App\Http\Controllers\BookingController;
 |
 */
 
-Route::resource('rooms', RoomController::class);
+
+Route::resources([
+    'rooms' => RoomController::class,
+    'bookings' => BookingController::class,
+]);
+
 
 Route::redirect('/', '/rooms');
-
-Route::resource('bookings', BookingController::class);
-
-/* Route::get('/', function () {
-    $data = ['title' => 'Rooms'];
-    return view('pages.rooms', $data);
-}); */
-
-// Route::get('/about', [PagesController::class, 'about']);
-
-/* Route::get('/bookings', function () {
-    $data = ['title' => 'Bookings'];
-    return view('pages.bookings', $data);
-}); */
 
 Route::get('/about', function () {
     $data = ['title' => 'About'];
@@ -40,6 +31,6 @@ Route::get('/about', function () {
 
 // To see all routes, run: php artisan route:list
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

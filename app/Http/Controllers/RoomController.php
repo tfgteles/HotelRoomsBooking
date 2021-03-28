@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Booking;
 
 class RoomController extends Controller
 {
@@ -50,6 +51,12 @@ class RoomController extends Controller
             'room_description' => 'required',
             'max_occupancy' => 'required',
         ]);
+
+        $room = Room::where('room_number', $request->room_number)->first();
+
+        if (isset($room->id)) {
+            return redirect('rooms')->with('error', 'Room number already exists');
+        }
 
         // Create Room
         $room = new Room;
@@ -127,6 +134,9 @@ class RoomController extends Controller
         $room = Room::find($id);
         $room->delete();
 
-        return redirect('rooms')->with('success', 'Room Deleted');
+        // Delete associated Bookings
+        $deletedRows = Booking::where('room_id', $id)->delete();
+
+        return redirect('rooms')->with('success', 'Room Deleted, and its associated bookings');
     }
 }

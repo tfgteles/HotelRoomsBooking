@@ -16,11 +16,11 @@
             {{Form::date('booking_date', '', ['class' => 'form-control'])}}
         </div>
         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
-        <a href="/bookings" class="btn btn-info" role="button">Cancel</a>
+        <a href="/bookings" class="btn btn-info" role="button">Clear</a>
     {!! Form::close() !!}
 
     @if (count($bookings) > 0)
-        <table class="table table-striped">
+        <table class="table table-striped mt-3">
             <tr>
                 <th>Room Number</th>
                 <th>Room Name</th>
@@ -45,7 +45,7 @@
         </table>
 
     @else
-        <p> No booking found</p>
+        <p class="mt-3"> No booking found</p>
     @endif
 
 @endsection
